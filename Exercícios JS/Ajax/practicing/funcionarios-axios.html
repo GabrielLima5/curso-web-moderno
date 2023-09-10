@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Axios - Funcionários</title>
+    <link rel='stylesheet' href='../css/estilo.css'>
+    <script src="../js/axios.js"></script>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Funcionários</h1>
+    <p>Nomes em ordem alfabética - 100 primeiros</p>
+
+    <script>
+        const newArray = []
+        const url = 'http://files.cod3r.com.br/curso-js/funcionarios.json'
+        axios(url)
+            .then(resp => resp.data.map(func => `${func.nome} ${func.sobrenome}`))
+            .then(func => func.sort())
+            .then(sortedFunc => sortedFunc.forEach((func, index) => {
+                if (index < 100){
+                    newArray.push(func)
+                }
+            }))
+            .then(func100 => {
+                const ol = document.createElement('ol')
+                document.body.appendChild(ol)
+
+                newArray.forEach(pessoa => {
+                    const li = document.createElement('li')
+                    li.innerHTML = pessoa
+                    ol.appendChild(li)
+                })
+            })
+            
+    </script>
+</body>

@@ -1,0 +1,6 @@
+COMANDOS BÁSICOS
+use dbName = muda para outro banco de dados
+db.createCollection('name') = cria uma coleção no banco de dados
+show dbs = mostra os bancos de dados ativos
+db.collectionName.drop() = exclui a coleção do banco de dados
+show collections = mostra as coleções disponíveis

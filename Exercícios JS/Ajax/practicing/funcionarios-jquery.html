@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>jQuery - Funcionários</title>
+    <link rel='stylesheet' href='../css/estilo.css'>
+    <script src="../js/jquery.js"></script>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>jQuery - Funcionários</h1>
+    <p>Funcionários que ganham mais - 100 primeiros</p>
+
+    <script>
+        function showData(data){
+            const ol = document.createElement('ol')
+            const sorted = data.sort((x, y) => y.salario - x.salario)
+            const sortedArray = sorted.map(pessoa => `${pessoa.nome} ${pessoa.sobrenome} | Salário: R$${(pessoa.salario).toFixed(2).replace('.', ',')}`)
+            sortedArray.forEach((func, index) => {
+                if (index <= 100){
+                    const li = document.createElement('li')
+                    li.innerHTML = func
+                    ol.appendChild(li)
+                }
+            })
+
+            document.body.appendChild(ol)
+        }
+
+        $.ajax({
+            url: 'http://files.cod3r.com.br/curso-js/funcionarios.json',
+            success(data){
+                showData(data)
+            },
+            error(e){
+                console.error(e)
+            }
+        })
+    </script>
+</body>

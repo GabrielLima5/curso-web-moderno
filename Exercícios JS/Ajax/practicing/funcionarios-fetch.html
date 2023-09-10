@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Fetch - Funcionários</title>
+    <link rel='stylesheet' href='../css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Funcionários</h1>
+    <p>Sobrenomes em ordem alfabética - 100 primeiros</p>
+
+    <script>
+        const ul = document.createElement('ul')
+        const url = 'http://files.cod3r.com.br/curso-js/funcionarios.json'
+        fetch(url)
+            .then(resp => resp.json())
+            .then(json => json.map(pessoa => `${(pessoa.sobrenome).toUpperCase()}, ${pessoa.nome}`))
+            .then(pessoa => {
+                const newArray = pessoa.sort()
+                newArray.forEach((func, index) => {
+                    if (index <= 100){
+                        const li = document.createElement('li')
+                        li.innerHTML = func
+                        ul.appendChild(li)
+                    }
+                })
+
+                document.body.appendChild(ul)
+            })
+    </script>
+</body>

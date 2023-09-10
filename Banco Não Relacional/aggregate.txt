@@ -1,0 +1,16 @@
+CONSULTAS COMPLEXAS COM AGGREGATE
+db.estados.aggregate([
+    { $project: { nome: 1, "cidades.nome": 1, _id: 0}}
+])
+
+db.estados.aggregate([
+    { $project: (populacao: {$sum: "$cidades.populacao"})},
+    { $group: { _id: null, populacaoTotal: {$sum: "$populacao"}}},
+    { $project: { _id: 0, populacaoTotal: 1}}
+])
+
+db.estados.aggregate([
+    { $match: {"cidades.nome": "Sorocaba" }},
+    { $unwind: { "$cidades" }},
+    { $project: { _id: "$cidades._id" }}
+])

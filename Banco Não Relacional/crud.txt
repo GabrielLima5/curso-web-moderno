@@ -1,0 +1,19 @@
+INSERIR
+db.collectionName.insert({ chave: "valor" }) = cria um registro no banco de dados
+db.collectionName.save({ chave: "valor" }) = salva um registro no banco de dados (semelhante ao insert)
+
+CONSULTAR
+db.collectionName.find().pretty() = mostra as coleçòes existentes em forma de JSON
+db.collectionName.findOne({ sigla: "RJ" }) = retorna o registro obtido com base em um filtro (nesse caso, da sigla)
+db.collectionName.find(atributo: {$exists: true}) = retorna apenas os registros que possuem determinado atributo.
+
+UPDATE
+db.estados.update({ sigla: "RJ" }, {$set: {populacao: 45340000}}) = atualiza um registro no banco de dados 
+(primeiro, é passado um filtro e depois o que deve ser atualizado no registro obtido com base nesse filtro)
+
+db.estados.update({ sigla: "RJ"}, {$set: {populacao: 16720000}})
+db.estados.update({ sigla: "SP"}, {$push: {cidades: [ nome: "Santos", populacao: 454000]}}) = adiciona um elemento ao array contido naquele registro
+
+REMOVE
+db.estados.remove({ sigla: "AC" }) = remove um registro do banco de dados
+db.estados.remove({ populacao: {$exists: false}}, 1)

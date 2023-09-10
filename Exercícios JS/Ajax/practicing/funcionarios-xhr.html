@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>XMLHttpRequest - Funcionários</title>
+    <link rel='stylesheet' href='../css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>XMLHTTPRequest - Funcionários</h1>
+    <p>Funcionários que ganham menos - 100 primeiros</p>
+
+    <script>
+        function ajax(config){
+            const xhr = new XMLHttpRequest()
+            xhr.open(config.metodo, config.url, true)
+
+            xhr.onload = e => {
+                if (xhr.status == 200){
+                    config.sucesso(xhr.response)
+                } else if (xhr.status >= 400){
+                    config.erro({
+                        codigo: xhr.status,
+                        texto: xhr.statusText
+                    })
+                }
+            }
+
+            xhr.send()
+        }
+
+        function mostrarDados(dados){
+            const ol = document.createElement('ol')
+            const sorted = dados.sort((x, y) => x.salario - y.salario)
+            const newArray = sorted.map(func => `${func.nome} ${func.sobrenome} | Salário: R$${(func.salario).toFixed(2).replace('.', ',')}`)
+            newArray.forEach((func, index) => {
+                if (index <= 100){
+                    const li = document.createElement('li')
+                    li.innerHTML = func
+                    ol.appendChild(li)
+                }
+            });
+
+            document.body.appendChild(ol)
+        }
+
+        ajax({
+            url: 'http://files.cod3r.com.br/curso-js/funcionarios.json',
+            metodo: 'get',
+            sucesso(dados){
+                const parseDados = JSON.parse(dados)
+                mostrarDados(parseDados)
+            },
+            erro(e){
+                const errorMessage = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(errorMessage)
+            }
+        })
+    </script>
+</body>

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "express": "4.16.2",
+    "ludash": "^0.1.0-pre",
+    "node-schedule": "^2.1.1"
+  }
+}
